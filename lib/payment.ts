@@ -94,13 +94,10 @@ const getTransactionURL = async (
 
     if (!response) throw new Error('No response from BOG API')
 
-    // Adjust according to BOG's response structure
-    // BOG should return redirect URL in _links.redirect.href
-    const transactionId =
-      response.orderRequestId ||
-      response.transactionId ||
-      response.id ||
-      response.external_order_id
+    // Use the already generated external_order_id as the primary identifier for Firestore  
+    const transactionId = externalOrderId // This will be used for Firestore
+    
+    console.log('Using external_order_id for Firestore:', externalOrderId)
     let transactionUrl =
       (response._links &&
         response._links.redirect &&
