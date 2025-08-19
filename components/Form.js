@@ -204,48 +204,6 @@ export default function Form() {
     }
   }
 
-  // Debug test function - direct email without payment
-  const handleDebugTest = async () => {
-    setState((prev) => ({
-      ...prev,
-      isLoading: true
-    }))
-    
-    try {
-      console.log('🔧 DEBUG: Starting direct email test...')
-      const res = await axios.post('/api/debug-check', {
-        vincode: values.vin.toUpperCase(),
-        vendor: vendor,
-        email: values.email
-      })
-      
-      if (res.status === 200) {
-        toast({
-          title: '✅ DEBUG: Success!',
-          description: `Email sent directly! PDF size: ${res.data.pdfSize} bytes`,
-          status: 'success',
-          duration: 5000,
-          isClosable: true
-        })
-        console.log('🔧 DEBUG: Success response:', res.data)
-      }
-    } catch (err) {
-      console.error('🔧 DEBUG: Error:', err)
-      toast({
-        title: '❌ DEBUG: Failed',
-        description: err.response?.data?.message || err.message,
-        status: 'error',
-        duration: 5000,
-        isClosable: true
-      })
-    } finally {
-      setState((prev) => ({
-        ...prev,
-        isLoading: false
-      }))
-    }
-  }
-
   const onSubmit = async () => {
     setLoading(true)
     setError()
@@ -647,20 +605,6 @@ export default function Form() {
             isLoading={isLoading}
           >
             {form['form-check']}
-          </Button>
-          
-          {/* Debug Test Button */}
-          <Button
-            variant="outline"
-            w={'70%'}
-            ml="15%"
-            mt={3}
-            colorScheme="red"
-            disabled={!values.vin || !values.email}
-            onClick={handleDebugTest}
-            isLoading={isLoading}
-          >
-            🔧 DEBUG TEST (Direct Email)
           </Button>
         </Container>
       </Box>

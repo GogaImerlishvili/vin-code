@@ -34,6 +34,14 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         console.log('[WEBHOOK] Payment captured, processing email...')
         try {
           const doc = await getDocumentById(PaymentId)
+          
+          // Check if document exists
+          if (!doc) {
+            console.log('[WEBHOOK] Document not found for PaymentId:', PaymentId)
+            res.status(404).json({ error: 'Document not found', paymentId: PaymentId })
+            return
+          }
+          
           console.log('[WEBHOOK] Document retrieved:', {
             vincode: doc.vincode,
             vendor: doc.vendor,
