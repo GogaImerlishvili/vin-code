@@ -65,7 +65,7 @@ module.exports = {
             '[puppeteerInstance] Launching puppeteer for development (local)'
           )
           browser = await puppeteer.launch({
-            headless: "new",
+            headless: 'new',
             args: [
               '--no-sandbox',
               '--disable-setuid-sandbox',

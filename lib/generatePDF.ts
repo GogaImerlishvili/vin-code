@@ -620,7 +620,9 @@ const generatePDF = async (html: string, tries: number = 3) => {
     // შევამოწმოთ PDF header
     const pdfHeader = pdf.slice(0, 4).toString()
     if (pdfHeader !== '%PDF') {
-      console.warn('[generatePDF] ⚠️ PDF header validation failed, but continuing...')
+      console.warn(
+        '[generatePDF] ⚠️ PDF header validation failed, but continuing...'
+      )
     } else {
       console.log('[generatePDF] ✅ PDF header validation passed')
     }

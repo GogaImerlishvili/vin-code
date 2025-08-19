@@ -3,17 +3,17 @@ const puppeteer = require('puppeteer')
 
 async function testPuppeteerProduction() {
   console.log('🧪 Testing Puppeteer for Render.com production...')
-  
+
   try {
     // Set production environment
     process.env.NODE_ENV = 'production'
-    
+
     const chromium = require('@sparticuz/chromium')
-    
+
     console.log('📦 Testing chromium binary...')
     const executablePath = await chromium.executablePath()
     console.log('✅ Chromium executable path:', executablePath)
-    
+
     console.log('🚀 Launching Puppeteer...')
     const browser = await puppeteer.launch({
       args: [
@@ -31,7 +31,7 @@ async function testPuppeteerProduction() {
       headless: chromium.headless,
       ignoreHTTPSErrors: true
     })
-    
+
     console.log('📄 Creating test page...')
     const page = await browser.newPage()
     await page.setContent(`
@@ -44,19 +44,19 @@ async function testPuppeteerProduction() {
         </body>
       </html>
     `)
-    
+
     console.log('📊 Generating PDF...')
     const pdf = await page.pdf({
       format: 'A4',
       printBackground: true,
       margin: { top: '1cm', right: '1cm', bottom: '1cm', left: '1cm' }
     })
-    
+
     console.log('✅ PDF generated successfully!')
     console.log(`📏 PDF size: ${pdf.length} bytes`)
-    
+
     await browser.close()
-    
+
     console.log('🎉 Render.com production test completed successfully!')
     console.log('')
     console.log('📋 Summary:')
@@ -65,7 +65,6 @@ async function testPuppeteerProduction() {
     console.log(`  ✅ PDF generation: Success (${pdf.length} bytes)`)
     console.log('')
     console.log('🚀 Ready for Render.com deployment!')
-    
   } catch (error) {
     console.error('❌ Production test failed:')
     console.error(error.message)

@@ -27,9 +27,13 @@ export const sendMail = async (
   // შევამოწმოთ PDF header
   const pdfHeader = pdfBuffer.slice(0, 4).toString()
   if (pdfHeader !== '%PDF') {
-    console.warn('[sendMail] ⚠️ PDF header validation failed, but continuing...')
+    console.warn(
+      '[sendMail] ⚠️ PDF header validation failed, but continuing...'
+    )
   } else {
-    console.log(`[sendMail] ✅ PDF validation passed. Size: ${pdfBuffer.length} bytes`)
+    console.log(
+      `[sendMail] ✅ PDF validation passed. Size: ${pdfBuffer.length} bytes`
+    )
   }
 
   // Convert PDF to base64 properly
@@ -83,12 +87,16 @@ export const sendMail = async (
       tries: tries,
       fullError: JSON.stringify(err.response?.body, null, 2)
     })
-    
+
     if (tries > 0) {
       console.log(`[sendMail] Retrying... ${tries} attempts left`)
       return sendMail(mail, vincode, vendor, pdfBuffer, tries - 1)
     } else {
-      throw new Error(`Could not send mail: ${err.message}. Details: ${JSON.stringify(err.response?.body)}`)
+      throw new Error(
+        `Could not send mail: ${err.message}. Details: ${JSON.stringify(
+          err.response?.body
+        )}`
+      )
     }
   }
 }
