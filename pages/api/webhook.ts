@@ -19,7 +19,49 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   })
 
   if (req.method === 'POST') {
-    const { PaymentStatus, PaymentId } = req.body
+    // Handle different webhook formats
+    let PaymentStatus, PaymentId
+    
+    // BOG webhook format
+    if (req.body.event === 'order_payment') {
+      const orderData = req.body.body
+      PaymentId = orderData.external_order_id
+      
+      // Map BOG status to our expected format
+      if (orderData.order_status && orderData.order_status.key) {
+        const bogStatus = orderData.order_status.key
+        switch (bogStatus) {
+          case 'created':
+          case 'pending':
+            PaymentStatus = 'Pending'
+            break
+          case 'succeeded':
+          case 'completed':
+            PaymentStatus = 'Captured'
+            break
+          case 'failed':
+          case 'cancelled':
+            PaymentStatus = 'Rejected'
+            break
+          case 'expired':
+            PaymentStatus = 'Timeout'
+            break
+          default:
+            PaymentStatus = bogStatus
+        }
+      }
+      
+      console.log('[WEBHOOK] BOG format detected:', {
+        bogOrderId: orderData.order_id,
+        externalOrderId: orderData.external_order_id,
+        bogStatus: orderData.order_status?.key,
+        mappedStatus: PaymentStatus
+      })
+    } else {
+      // Legacy format
+      PaymentStatus = req.body.PaymentStatus
+      PaymentId = req.body.PaymentId
+    }
 
     console.log('[WEBHOOK] Processing payment:', { PaymentStatus, PaymentId })
 
