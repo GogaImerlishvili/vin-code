@@ -1,0 +1,175 @@
+// pages/payment/success.js
+import { useState, useEffect } from 'react'
+import {
+  Box,
+  Heading,
+  Text,
+  Button,
+  Alert,
+  AlertIcon,
+  Spinner,
+  VStack
+} from '@chakra-ui/react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
+export default function PaymentSuccess() {
+  const router = useRouter()
+  const [emailStatus, setEmailStatus] = useState('checking') // checking, sent, failed, already_sent
+  const [errorMessage, setErrorMessage] = useState('')
+  const [isRetrying, setIsRetrying] = useState(false)
+
+  const { paymentId, email, vincode } = router.query
+
+  const processPaymentSuccess = async (retryCount = 0) => {
+    try {
+      setEmailStatus('checking')
+      console.log('Processing payment success:', { paymentId, email, vincode })
+
+      const response = await fetch('/api/process-payment-success', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          paymentId,
+          email,
+          vincode
+        })
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        if (data.alreadySent) {
+          setEmailStatus('already_sent')
+        } else {
+          setEmailStatus('sent')
+        }
+      } else {
+        console.error('Failed to process payment:', data)
+        setEmailStatus('failed')
+        setErrorMessage(data.details || data.error || 'Unknown error')
+      }
+    } catch (error) {
+      console.error('Error processing payment:', error)
+      setEmailStatus('failed')
+      setErrorMessage(error.message)
+    }
+  }
+
+  const retryEmailSend = async () => {
+    setIsRetrying(true)
+    await processPaymentSuccess()
+    setIsRetrying(false)
+  }
+
+  useEffect(() => {
+    // Only process if we have the necessary parameters
+    if (paymentId || (email && vincode)) {
+      processPaymentSuccess()
+    } else {
+      setEmailStatus('failed')
+      setErrorMessage('დაკარგული payment პარამეტრები')
+    }
+  }, [paymentId, email, vincode])
+
+  const getStatusMessage = () => {
+    switch (emailStatus) {
+      case 'checking':
+        return {
+          status: 'info',
+          message: 'ვამუშავებთ თქვენს გადახდას...'
+        }
+      case 'sent':
+        return {
+          status: 'success',
+          message: 'რეპორტი გამოგეგზავნებათ ელფოსტაზე!'
+        }
+      case 'already_sent':
+        return {
+          status: 'warning',
+          message: 'რეპორტი უკვე გამოგეგზავნებთ.'
+        }
+      case 'failed':
+        return {
+          status: 'error',
+          message: 'ვერ მოხერხდა ავტომატური გაგზავნა. მოგვმართეთ support-ში.'
+        }
+      default:
+        return {
+          status: 'info',
+          message: 'გთხოვთ დალოდოთ...'
+        }
+    }
+  }
+
+  const statusInfo = getStatusMessage()
+
+  return (
+    <Box
+      minH="60vh"
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <VStack spacing={6} maxW="600px" textAlign="center">
+        <Heading color="green.500" mb={2}>
+          გადახდა წარმატებით დასრულდა
+        </Heading>
+
+        <Text fontSize="lg" mb={4}>
+          გმადლობთ გადახდისთვის!
+        </Text>
+
+        <Alert status={statusInfo.status} borderRadius="md">
+          <AlertIcon />
+          <VStack align="start" flex="1">
+            <Text fontWeight="bold">{statusInfo.message}</Text>
+            {emailStatus === 'checking' && (
+              <Box display="flex" alignItems="center" gap={2}>
+                <Spinner size="sm" />
+                <Text fontSize="sm">
+                  ვამზადებთ PDF რეპორტს და ვგზავნით ელფოსტაზე...
+                </Text>
+              </Box>
+            )}
+            {emailStatus === 'failed' && errorMessage && (
+              <Text fontSize="sm" color="red.600">
+                შეცდომა: {errorMessage}
+              </Text>
+            )}
+          </VStack>
+        </Alert>
+
+        {emailStatus === 'failed' && (
+          <Button
+            colorScheme="orange"
+            onClick={retryEmailSend}
+            isLoading={isRetrying}
+            loadingText="ვცდილობთ ხელახლა..."
+          >
+            ხელახლა ცდა
+          </Button>
+        )}
+
+        <Link href="/" passHref>
+          <Button colorScheme="blue" size="lg">
+            მთავარ გვერდზე დაბრუნება
+          </Button>
+        </Link>
+
+        {process.env.NODE_ENV === 'development' && (
+          <Box mt={4} p={4} bg="gray.100" borderRadius="md" fontSize="sm">
+            <Text fontWeight="bold">Debug Info:</Text>
+            <Text>Payment ID: {paymentId}</Text>
+            <Text>Email: {email}</Text>
+            <Text>VIN: {vincode}</Text>
+            <Text>Status: {emailStatus}</Text>
+          </Box>
+        )}
+      </VStack>
+    </Box>
+  )
+}

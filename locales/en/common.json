@@ -1,0 +1,49 @@
+{
+  "title": "AUTOVIN",
+  "sample": "VIEW SAMPLE REPORT",
+  "hero": {
+    "hero-title": "VIN check reports for all makes and models of Cars,Trucks,RVs and Motorcycles",
+    "hero-time": "SAVE TIME",
+    "hero-money": "SAVE MONEY",
+    "hero-protect": "PROTECT"
+  },
+  "form": {
+    "form-top": "top VIN number lookup",
+    "form-carcheck": "Carcheck",
+    "form-carfax": "Carfax",
+    "form-payment": "Proceed to payment",
+    "form-vin": "VIN",
+    "form-required": "Required",
+    "form-email": "Email",
+    "form-check": "Check"
+  },
+  "reason": {
+    "reasons": "10 reason why you must check VIN code",
+    "identify": "Verify the car's identity",
+    "accident": "Check for accidents and damage",
+    "history": "Learn about the car's maintenance history",
+    "stolen": "Avoid buying a stolen car",
+    "value": "Determine the car's value",
+    "lien": "Identify any liens on the vehicle",
+    "odemeter": "Check for odemeter tampering",
+    "rental": "See if the car has been used as a rental or fleet vehicle",
+    "disaster": "Determine if the car has been in a flood or other natural disaster",
+    "recall": "Check for any outstanding recalls on the vehicle",
+    "why": "Why Autovin",
+    "why-text": "Saving customers time and money by quickly and efficiently checking a car's VIN code and providing all relevant information in a clear and concise report",
+    "fast": "Check fast and easy",
+    "fast-text": "Review the report to get information about the car's make, model, year, engine size, transmission type, and other relevant details"
+  },
+  "errors": {
+    "validation": "Validation error",
+    "setValidation": "Check vincode and email",
+    "notFoundTitle": "Report not found",
+    "notFound": "Could not find report for that vincode",
+    "server": "Could not access server. Please try again",
+    "balance": "Could not access server. Please try again later",
+    "payment": "Could not access payment! Try again"
+  },
+  "successes": {
+    "found": "Report found!"
+  }
+}

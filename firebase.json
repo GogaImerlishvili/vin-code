@@ -1,0 +1,32 @@
+{
+  "hosting": {
+    "source": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "**/.env*"
+    ],
+    "rewrites": [
+      {
+        "source": "/api/**",
+        "function": "nextjsFunc"
+      },
+      {
+        "source": "**",
+        "function": "nextjsFunc"
+      }
+    ],
+    "frameworksBackend": {
+      "region": "us-central1",
+      "omit": [
+        ".env.local",
+        ".env.development",
+        ".env"
+      ]
+    }
+  },
+  "functions": {
+    "source": ".next/serverless"
+  }
+}
