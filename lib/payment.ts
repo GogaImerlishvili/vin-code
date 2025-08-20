@@ -1,7 +1,6 @@
 import { addDocument } from './firestore'
 import { getEnvVar } from './getEnvVar'
 import { getBogAccessToken } from './bogAuth'
-import crypto from 'crypto'
 
 const getTransactionURL = async (
   vincode: string,
@@ -14,8 +13,11 @@ const getTransactionURL = async (
     // Get fresh OAuth token from BOG
     const accessToken = await getBogAccessToken()
     console.log('BOG access token:', accessToken)
-    // Construct the payload as required by BOG's API (ecommerce/orders)
-    const externalOrderId = crypto.randomUUID()
+    // Generate unique IDs using simple method for now
+    const externalOrderId = `order_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+    const baseSuccessUrl = getEnvVar('BOG_SUCCESS_URL') || getEnvVar('BOG_RETURN_URL')
+    const successUrlWithParams = `${baseSuccessUrl}?paymentId=${externalOrderId}&email=${encodeURIComponent(mail)}&vincode=${encodeURIComponent(vincode)}`
+    
     const payload = {
       callback_url: getEnvVar('BOG_CALLBACK_URL'),
       external_order_id: externalOrderId,
@@ -32,13 +34,13 @@ const getTransactionURL = async (
       },
       redirect_urls: {
         fail: getEnvVar('BOG_FAIL_URL') || getEnvVar('BOG_RETURN_URL'),
-        success: getEnvVar('BOG_SUCCESS_URL') || getEnvVar('BOG_RETURN_URL')
+        success: successUrlWithParams
       }
     }
     console.log('BOG payment payload:', payload)
 
     // Generate a unique correlation ID for this request
-    const correlationId = crypto.randomUUID()
+    const correlationId = `corr_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
 
     const options = {
       method: 'POST',
