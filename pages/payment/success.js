@@ -68,11 +68,16 @@ export default function PaymentSuccess() {
   useEffect(() => {
     // Only process if we have the necessary parameters
     if (paymentId || (email && vincode)) {
-      processPaymentSuccess()
+      // Add delay to allow webhook to process first
+      const delay = setTimeout(() => {
+        processPaymentSuccess()
+      }, 2000) // Wait 2 seconds for webhook to process
       
       // Clean up URL parameters after processing
       const cleanUrl = window.location.origin + window.location.pathname
       window.history.replaceState({}, document.title, cleanUrl)
+      
+      return () => clearTimeout(delay)
     } else {
       setEmailStatus('failed')
       setErrorMessage('დაკარგული payment პარამეტრები')
@@ -118,6 +123,7 @@ export default function PaymentSuccess() {
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
+      backgroundColor="#0d2e49"
     >
       <VStack spacing={6} maxW="600px" textAlign="center">
         <Heading color="green.500" mb={2}>
