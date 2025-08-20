@@ -1,4 +1,8 @@
+
 import { getEnvVar } from './getEnvVar'
+
+// Simple in-memory cache for VIN info (per process)
+const vinInfoCache: Record<string, any> = {}
 
 const getVinInfo = async (
   vincode: string,
@@ -11,6 +15,13 @@ const getVinInfo = async (
       `getVinInfo: შეცდომა ცდაზე #${attempt}:`,
       error?.message || error
     )
+  }
+
+  // Compose cache key
+  const cacheKey = `${vendor}:${vincode}`
+  if (vinInfoCache[cacheKey]) {
+    console.log('getVinInfo: დაბრუნდა cache-დან:', cacheKey)
+    return vinInfoCache[cacheKey]
   }
 
   let lastError
@@ -42,6 +53,8 @@ const getVinInfo = async (
           `JSON parsing error. Status: ${response.status}. Text: ${text}`
         )
       }
+      // Save to cache
+      vinInfoCache[cacheKey] = data
       return data
     } catch (error) {
       logRetryError(error, attempt)
