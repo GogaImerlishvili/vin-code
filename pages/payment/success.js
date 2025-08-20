@@ -19,7 +19,7 @@ export default function PaymentSuccess() {
   const [errorMessage, setErrorMessage] = useState('')
   const [isRetrying, setIsRetrying] = useState(false)
 
-  const { paymentId, email, vincode } = router.query
+  const { paymentId, email, vincode, vendor } = router.query
 
   const processPaymentSuccess = async (retryCount = 0) => {
     try {
@@ -34,7 +34,8 @@ export default function PaymentSuccess() {
         body: JSON.stringify({
           paymentId,
           email,
-          vincode
+          vincode,
+          vendor
         })
       })
 
@@ -68,11 +69,15 @@ export default function PaymentSuccess() {
     // Only process if we have the necessary parameters
     if (paymentId || (email && vincode)) {
       processPaymentSuccess()
+      
+      // Clean up URL parameters after processing
+      const cleanUrl = window.location.origin + window.location.pathname
+      window.history.replaceState({}, document.title, cleanUrl)
     } else {
       setEmailStatus('failed')
       setErrorMessage('დაკარგული payment პარამეტრები')
     }
-  }, [paymentId, email, vincode])
+  }, [paymentId, email, vincode, vendor])
 
   const getStatusMessage = () => {
     switch (emailStatus) {
@@ -166,6 +171,7 @@ export default function PaymentSuccess() {
             <Text>Payment ID: {paymentId}</Text>
             <Text>Email: {email}</Text>
             <Text>VIN: {vincode}</Text>
+            <Text>Vendor: {vendor}</Text>
             <Text>Status: {emailStatus}</Text>
           </Box>
         )}

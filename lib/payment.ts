@@ -16,7 +16,7 @@ const getTransactionURL = async (
     // Generate unique IDs using simple method for now
     const externalOrderId = `order_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
     const baseSuccessUrl = getEnvVar('BOG_SUCCESS_URL') || getEnvVar('BOG_RETURN_URL')
-    const successUrlWithParams = `${baseSuccessUrl}?paymentId=${externalOrderId}&email=${encodeURIComponent(mail)}&vincode=${encodeURIComponent(vincode)}`
+    const successUrlWithParams = `${baseSuccessUrl}?paymentId=${externalOrderId}&email=${encodeURIComponent(mail)}&vincode=${encodeURIComponent(vincode)}&vendor=${encodeURIComponent(vendor)}`
     
     const payload = {
       callback_url: getEnvVar('BOG_CALLBACK_URL'),
