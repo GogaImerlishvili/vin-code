@@ -131,7 +131,7 @@ export default function PaymentSuccess() {
         </Heading>
 
         <Text fontSize="lg" mb={4}>
-          გმადლობთ გადახდისთვის!
+          გმადლობთ რომ სარგებლობთ ჩვენი სერვისით!
         </Text>
 
         <Alert status={statusInfo.status} borderRadius="md">
@@ -153,18 +153,6 @@ export default function PaymentSuccess() {
             )}
           </VStack>
         </Alert>
-
-        {emailStatus === 'failed' && (
-          <Button
-            colorScheme="orange"
-            onClick={retryEmailSend}
-            isLoading={isRetrying}
-            loadingText="ვცდილობთ ხელახლა..."
-          >
-            ხელახლა ცდა
-          </Button>
-        )}
-
         <Link href="/" passHref>
           <Button colorScheme="blue" size="lg">
             მთავარ გვერდზე დაბრუნება

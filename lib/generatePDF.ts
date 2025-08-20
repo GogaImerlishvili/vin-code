@@ -546,7 +546,18 @@ const generatePDF = async (html: string, tries: number = 3) => {
     }
 
     console.log('[generatePDF] Getting puppeteer instance...')
-    const puppeteerInstance = await serverRuntimeConfig.puppeteerInstance()
+    let puppeteerInstance
+    try {
+      puppeteerInstance = await serverRuntimeConfig.puppeteerInstance()
+    } catch (puppeteerError) {
+      console.error('[generatePDF] Failed to get puppeteer instance:', puppeteerError)
+      if (tries > 1) {
+        console.log('[generatePDF] Retrying PDF generation due to puppeteer error...')
+        await new Promise(resolve => setTimeout(resolve, 3000)) // Wait 3 seconds
+        return generatePDF(html, tries - 1)
+      }
+      throw new Error('Failed to get puppeteer instance: ' + puppeteerError.message)
+    }
 
     if (!puppeteerInstance) {
       throw new Error('Failed to get puppeteer instance')

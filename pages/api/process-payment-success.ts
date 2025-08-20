@@ -3,7 +3,8 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import {
   updateSentMail,
   getDocumentById,
-  getDocumentsByEmail
+  getDocumentsByEmail,
+  setProcessing
 } from '../../lib/firestore'
 import getVinInfo from '../../lib/get-vin-info'
 import generatePDF from '../../lib/generatePDF'
@@ -64,6 +65,35 @@ export default async function handler(
         message: 'Email was already sent for this payment',
         alreadySent: true
       })
+    }
+
+    // Check if webhook is currently processing this document
+    if (doc.processing) {
+      console.log('[MANUAL_PROCESS] Document is being processed by webhook, waiting...')
+      
+      // Wait for webhook to complete processing
+      let waitAttempts = 0
+      const maxWaitAttempts = 10 // Wait up to 10 seconds
+      
+      while (waitAttempts < maxWaitAttempts) {
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        const updatedDoc = await getDocumentById(paymentId)
+        
+        if (updatedDoc && updatedDoc.sent_mail) {
+          console.log('[MANUAL_PROCESS] Webhook completed processing, email already sent')
+          return res.status(200).json({
+            message: 'Email was already sent by webhook',
+            alreadySent: true
+          })
+        }
+        
+        if (!updatedDoc || !updatedDoc.processing) {
+          console.log('[MANUAL_PROCESS] Webhook processing completed, continuing...')
+          break
+        }
+        
+        waitAttempts++
+      }
     }
 
     console.log(
