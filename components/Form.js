@@ -341,26 +341,6 @@ export default function Form() {
           pb="15px"
           boxShadow="0px 10px 15px -3px rgba(0,0,0,0.1)"
         >
-          {success && !error ? (
-            <HStack justifyContent="center">
-              <Button
-                size="md"
-                variant="solid"
-                w="full"
-                colorScheme="blue"
-                mb="10px"
-                onClick={handleTransaction}
-                isLoading={isUrlLoading}
-                disabled={
-                  !validateMail(values.email) ||
-                  !validateVincode(values.vin.toUpperCase()) ||
-                  values.vin.length !== 17
-                }
-              >
-                {form['form-payment']}
-              </Button>
-            </HStack>
-          ) : null}
 
           <HStack mb="20px" justifyContent="center">
             <Box
@@ -595,17 +575,36 @@ export default function Form() {
               onBlur={onBlur}
             />
           </FormControl>
-          <Button
-            variant="outline"
-            w={'70%'}
-            ml="15%"
-            colorScheme="blue"
-            disabled={!values.vin || !values.email}
-            onClick={onSubmit}
-            isLoading={isLoading}
-          >
-            {form['form-check']}
-          </Button>
+          {success && !error ? (
+            <Button
+              size="md"
+              variant="solid"
+              w={'70%'}
+              ml="15%"
+              colorScheme="blue"
+              onClick={handleTransaction}
+              isLoading={isUrlLoading}
+              disabled={
+                !validateMail(values.email) ||
+                !validateVincode(values.vin.toUpperCase()) ||
+                values.vin.length !== 17
+              }
+            >
+              {form['form-payment']}
+            </Button>
+          ) : (
+            <Button
+              variant="outline"
+              w={'70%'}
+              ml="15%"
+              colorScheme="blue"
+              disabled={!values.vin || !values.email}
+              onClick={onSubmit}
+              isLoading={isLoading}
+            >
+              {form['form-check']}
+            </Button>
+          )}
         </Container>
       </Box>
     </Box>
