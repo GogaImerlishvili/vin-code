@@ -1,3 +1,21 @@
+export const setProcessing = async (id: string, tries: number = 3) => {
+  try {
+    await signIn()
+    const ref = doc(db, 'user-info', id)
+    await updateDoc(ref, {
+      processing: true
+    })
+  } catch (err) {
+    console.error('setProcessing error:', err)
+    if (tries > 0) {
+      return setProcessing(id, tries - 1)
+    } else {
+      throw new Error(
+        'setProcessing failed: ' + (err && err.message ? err.message : err)
+      )
+    }
+  }
+}
 import { initializeApp } from 'firebase/app'
 import {
   getFirestore,

@@ -83,7 +83,23 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
             res.status(404).json({ error: 'Document not found', paymentId: PaymentId })
             return
           }
-          
+
+          // Protection against duplicate processing
+
+          // Protection against duplicate and parallel processing
+          if (doc.sent_mail) {
+            console.log('[WEBHOOK] Email already sent for this PaymentId:', PaymentId)
+            res.status(200).json({ message: 'Email already sent', alreadySent: true })
+            return
+          }
+          if (doc.processing) {
+            console.log('[WEBHOOK] Processing already in progress for PaymentId:', PaymentId)
+            res.status(200).json({ message: 'Processing already in progress', alreadyProcessing: true })
+            return
+          }
+          // Set processing flag
+          await require('../../lib/firestore').setProcessing(PaymentId)
+
           console.log('[WEBHOOK] Document retrieved:', {
             vincode: doc.vincode,
             vendor: doc.vendor,
