@@ -18,7 +18,7 @@ const Hero = () => {
         justifyContent="center"
         w={{ base: '90%', md: 'fit-content', lg: 'fit-content' }}
         m="0 auto"
-        mt={{ base: '-90px', md: '-150px', lg: '-180px' }}
+        // mt={{ base: '-180px', md: '-220px', lg: '-250px' }}
       >
         <Heading
           mt={'50px'}
