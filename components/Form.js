@@ -351,9 +351,9 @@ export default function Form() {
                   </Text>
                   <Text
                     mt="5px"
-                    color="red.300"
+                    color="red.400"
                     textAlign="justify"
-                    fontSize={{ base: 'sm', md: 'md', lg: 'md' }}
+                    fontSize={{ base: 'sm', md: 'md', lg: 'lg' }}
                   >
                     {process.env.NEXT_PUBLIC_CARFAX_PRICE}₾
                   </Text>
@@ -447,7 +447,7 @@ export default function Form() {
                     mt="5px"
                     color="red.400"
                     textAlign="justify"
-                    fontSize={{ base: 'sm', md: 'md', lg: 'md' }}
+                    fontSize={{ base: 'sm', md: 'md', lg: 'lg' }}
                   >
                     {process.env.NEXT_PUBLIC_AUTOCHECK_PRICE}₾
                   </Text>
