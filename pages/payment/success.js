@@ -118,7 +118,7 @@ export default function PaymentSuccess() {
 
   return (
     <Box
-      minH="60vh"
+      minH="100vh"
       display="flex"
       flexDirection="column"
       alignItems="center"
@@ -133,6 +133,7 @@ export default function PaymentSuccess() {
         <Text fontSize="lg" mb={4}>
           გმადლობთ რომ სარგებლობთ ჩვენი სერვისით!
         </Text>
+    
 
         <Alert status={statusInfo.status} borderRadius="md">
           <AlertIcon />

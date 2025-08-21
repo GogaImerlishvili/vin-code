@@ -5,7 +5,7 @@ import Link from 'next/link'
 export default function PaymentFail() {
   return (
     <Box
-      minH="60vh"
+      minH="100vh"
       display="flex"
       flexDirection="column"
       alignItems="center"
