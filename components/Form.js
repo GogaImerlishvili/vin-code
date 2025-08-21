@@ -34,7 +34,7 @@ export default function Form() {
   const [isCarfaxFlipped, setIsCarfaxFlipped] = useState(false)
   const [touched, setTouched] = useState({})
   const { lang, setLang } = useContext(Lang)
-  const { form, errors, successes } = langData[lang]
+  const { form, errors, successes, hero } = langData[lang]
   const {
     values,
     isLoading,
@@ -153,29 +153,6 @@ export default function Form() {
     setIsCarfaxFlipped(false)
   }
 
-  // const handleTransaction = async () => {
-  //   setState((prev) => ({
-  //     ...prev,
-  //     isUrlLoading: true
-  //   }))
-  //   try {
-  //     const res = await axios.post('/api/checkout', {
-  //       vendor,
-  //       vincode: values.vin.toUpperCase(),
-  //       mail: values.email
-  //     })
-  //     const data = res.data
-  //     if (!res.status === 200 || !data.response || !data.response.transactionUrl) {
-  //       setError(errors['payment'] || 'Payment error')
-  //       setState((prev) => ({ ...prev, isUrlLoading: false }))
-  //       return
-  //     }
-  //     window.location.replace(data.response.transactionUrl)
-  //   } catch (err) {
-  //     setError(errors['payment'] || 'Payment error')
-  //     setState((prev) => ({ ...prev, isUrlLoading: false }))
-  //   }
-  // }
   const handleTransaction = async () => {
     setState((prev) => ({
       ...prev,
@@ -224,29 +201,6 @@ export default function Form() {
       return
     }
 
-    // const getReportStatus = async (vend, vincode, email) => {
-    //   try {
-    //     const balanceRes = await axios.get('/api/balance')
-    //     if (balanceRes.status === 200) {
-    //       const res = await axios.get(`/api/car-info?vendor=${vend}&vincode=${vincode}&receiver=${email}`)
-    //       const reportStatus = res.data
-    //       if (!reportStatus.reportFound) {
-    //         setError(errors['notFound'])
-    //       } else {
-    //         setState((prev) => ({
-    //           ...prev,
-    //           success: successes['found']
-    //         }))
-    //       }
-    //     } else {
-    //       setServerError(errors['balance'])
-    //     }
-    //     setLoading(false)
-    //   } catch (err) {
-    //     setError(errors['server'])
-    //     setLoading(false)
-    //   }
-    // }
     const getReportStatus = async (vend, vincode, email) => {
       try {
         const balanceRes = await axios.get('/api/balance')
@@ -287,10 +241,11 @@ export default function Form() {
     <Box
       ml="auto"
       mr="auto"
-      h={{ base: '700px', md: '700px', lg: '780px' }}
+      h={{ base: '600px', md: '650px', lg: '780px' }}
       display="flex"
       justifyContent="center"
-      alignItems="center"
+      alignItems="flex-start"
+      pt={{ base: '40px', md: '60px', lg: '80px' }}
       position="relative"
       backgroundImage={`url('/car.png')`}
       backgroundPosition="center"
@@ -309,7 +264,7 @@ export default function Form() {
       }}
     >
       <Box
-        w="450px"
+        w={{ base: '300px', md: '350px', lg: '450px' }}
         pb="40px"
         h="fit-content"
         borderRadius="20px"
@@ -341,7 +296,6 @@ export default function Form() {
           pb="15px"
           boxShadow="0px 10px 15px -3px rgba(0,0,0,0.1)"
         >
-
           <HStack mb="20px" justifyContent="center">
             <Box
               h="60px"
@@ -391,6 +345,7 @@ export default function Form() {
                     w="full"
                     textAlign="center"
                     fontWeight="bold"
+                    fontSize={{ base: 'xs', md: 'sm', lg: 'md' }}
                   >
                     {form['form-carfax']}
                   </Text>
@@ -398,7 +353,7 @@ export default function Form() {
                     mt="5px"
                     color="red.300"
                     textAlign="justify"
-                    fontSize="lg"
+                    fontSize={{ base: 'sm', md: 'md', lg: 'md' }}
                   >
                     {process.env.NEXT_PUBLIC_CARFAX_PRICE}₾
                   </Text>
@@ -423,10 +378,10 @@ export default function Form() {
                     backfaceVisibility: 'hidden'
                   }}
                 >
-                  <Text fontSize="xl" fontWeight="bold">
+                  <Text fontSize="lg" fontWeight="bold">
                     {process.env.NEXT_PUBLIC_CARFAX_PRICE}₾
                   </Text>
-                  <Text fontSize="sm" mt={2}>
+                  <Text fontSize="xs" mt={2}>
                     Carfax Price
                   </Text>
                 </Box>
@@ -484,6 +439,7 @@ export default function Form() {
                     w="full"
                     textAlign="center"
                     fontWeight="bold"
+                    fontSize={{ base: 'xs', md: 'sm', lg: 'md' }}
                   >
                     {form['form-carcheck']}
                   </Text>
@@ -491,7 +447,7 @@ export default function Form() {
                     mt="5px"
                     color="red.400"
                     textAlign="justify"
-                    fontSize="lg"
+                    fontSize={{ base: 'sm', md: 'md', lg: 'lg' }}
                   >
                     {process.env.NEXT_PUBLIC_AUTOCHECK_PRICE}₾
                   </Text>
@@ -516,10 +472,10 @@ export default function Form() {
                     backfaceVisibility: 'hidden'
                   }}
                 >
-                  <Text fontSize="xl" fontWeight="bold">
+                  <Text fontSize="lg" fontWeight="bold">
                     {process.env.NEXT_PUBLIC_AUTOCHECK_PRICE}₾
                   </Text>
-                  <Text fontSize="sm" mt={2}>
+                  <Text fontSize="xs" mt={2}>
                     Autocheck Price
                   </Text>
                 </Box>
@@ -570,6 +526,7 @@ export default function Form() {
               variant="flushed"
               ml="5px"
               mr="5px"
+              fontSize={{ base: '14px', md: '16px', lg: '16px' }}
               value={values.email}
               onChange={handleChange}
               onBlur={onBlur}
