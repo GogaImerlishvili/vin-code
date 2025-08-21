@@ -38,7 +38,6 @@ export default function PaymentSuccess() {
           vendor
         })
       })
-
       const data = await response.json()
 
       if (response.ok) {
@@ -46,6 +45,10 @@ export default function PaymentSuccess() {
           setEmailStatus('already_sent')
         } else {
           setEmailStatus('sent')
+        }
+        // Mark as processed in localStorage
+        if (paymentId) {
+          localStorage.setItem(`payment_processed_${paymentId}`, 'true')
         }
       } else {
         console.error('Failed to process payment:', data)
@@ -66,17 +69,27 @@ export default function PaymentSuccess() {
   }
 
   useEffect(() => {
-    // Only process if we have the necessary parameters
     if (paymentId || (email && vincode)) {
+      // Prevent second API call if already processed
+      if (
+        paymentId &&
+        localStorage.getItem(`payment_processed_${paymentId}`) === 'true'
+      ) {
+        setEmailStatus('sent')
+        // Clean up URL parameters
+        const cleanUrl = window.location.origin + window.location.pathname
+        window.history.replaceState({}, document.title, cleanUrl)
+        return
+      }
       // Add delay to allow webhook to process first
       const delay = setTimeout(() => {
         processPaymentSuccess()
       }, 2000) // Wait 2 seconds for webhook to process
-      
+
       // Clean up URL parameters after processing
       const cleanUrl = window.location.origin + window.location.pathname
       window.history.replaceState({}, document.title, cleanUrl)
-      
+
       return () => clearTimeout(delay)
     } else {
       setEmailStatus('failed')
@@ -133,11 +146,32 @@ export default function PaymentSuccess() {
         <Text fontSize="lg" mb={4}>
           გმადლობთ რომ სარგებლობთ ჩვენი სერვისით!
         </Text>
-          <Text fontSize="lg" mb={4} display="flex" alignItems="center" justifyContent="center" gap={2}>
-          <Box as="span" color="orange.400" display="inline-flex" alignItems="center" mr={2}>
-            <svg xmlns="http://www.w3.org/2000/svg" height="1.2em" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+        <Text
+          fontSize="lg"
+          mb={4}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          gap={2}
+        >
+          <Box
+            as="span"
+            color="orange.400"
+            display="inline-flex"
+            alignItems="center"
+            mr={2}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="1.2em"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+            </svg>
           </Box>
-          როდესაც შეტყობინება გამოიგზავნება, გთხოვთ შეამოწმოთ თქვენი ელფოსტის <span style={{ color: '#166534', fontWeight: 'bold' }}>SPAM</span>.
+          როდესაც შეტყობინება გამოიგზავნება, გთხოვთ შეამოწმოთ თქვენი ელფოსტის
+          SPAM.
         </Text>
 
         <Alert status={statusInfo.status} borderRadius="md">
