@@ -70,17 +70,7 @@ export default function PaymentSuccess() {
 
   useEffect(() => {
     if (paymentId || (email && vincode)) {
-      // Prevent second API call if already processed
-      if (
-        paymentId &&
-        localStorage.getItem(`payment_processed_${paymentId}`) === 'true'
-      ) {
-        setEmailStatus('sent')
-        // Clean up URL parameters
-        const cleanUrl = window.location.origin + window.location.pathname
-        window.history.replaceState({}, document.title, cleanUrl)
-        return
-      }
+      // Remove localStorage check, always call API
       // Add delay to allow webhook to process first
       const delay = setTimeout(() => {
         processPaymentSuccess()
