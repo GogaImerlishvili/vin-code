@@ -3,6 +3,32 @@ import { Image, Box, Link, Select } from '@chakra-ui/react'
 import { Lang } from '../context'
 import data from '../locales/langs'
 
+const logoResponsiveStyle = {
+  width: '120px',
+  height: '120px',
+  objectFit: 'contain',
+  marginTop: '20px',
+  transition: 'width 0.2s, height 0.2s',
+};
+
+const selectResponsiveStyle = {
+  width: 'fit-content',
+  cursor: 'pointer',
+  transition: 'width 0.2s',
+};
+
+const mediaQuery = `@media (max-width: 600px) {
+  .navbar-logo {
+    width: 140px !important;
+    height: 140px !important;
+    margin-top: 10px !important;
+  }
+  .navbar-select {
+    width: 80px !important;
+    font-size: 14px !important;
+  }
+}`;
+
 const Navbar = () => {
   const { lang, setLang } = useContext(Lang)
   let { title } = data[lang]
@@ -10,8 +36,25 @@ const Navbar = () => {
   const handleChange = (e) => {
     setLang(e.target.value)
   }
+  // Inject responsive styles
+  if (typeof window !== 'undefined') {
+    const styleTag = document.getElementById('navbar-responsive-style');
+    if (!styleTag) {
+      const style = document.createElement('style');
+      style.id = 'navbar-responsive-style';
+      style.innerHTML = mediaQuery;
+      document.head.appendChild(style);
+    }
+  }
   return (
-    <Box textColor="white" display="flex" maxW="full" h="100px" bg="#2D5697">
+    <Box
+      textColor="white"
+      display="flex"
+      maxW="full"
+      h="100px"
+      bg="#2D5697"
+      style={{ background: 'rgb(13, 46, 73)', boxShadow: '0 8px 24px 0 rgba(13,46,73,0.7)' }}
+    >
       <Box
         display="flex"
         justifyContent={'space-between'}
@@ -20,33 +63,26 @@ const Navbar = () => {
         m="0 auto"
       >
         <Box>
-          <Box display="flex" position="relative">
-            <Image
-              src="/circle.svg"
-              position="absolute"
-              top="-24px"
-              left="36px"
-              h="65px"
-              alt="Logo"
-            />
-            <Link
-              mt="-4px"
-              ml={'55px'}
-              fontSize={'2md'}
-              href="/"
-              textColor="white"
-            >
-              MYAUTOVIN
-            </Link>
-          </Box>
+           <Box display="flex" position="relative" style={{ minWidth: '120px', minHeight: '120px', justifyContent: 'center', alignItems: 'center' }}>
+             <Image
+               src="/logo.svg"
+               alt="Logo"
+               width={{ base: '100px', md: '120px' }}
+               height={{ base: '100px', md: '120px' }}
+               objectFit="contain"
+               marginTop={{ base: '10px', md: '20px' }}
+               marginLeft={{ base: '12px', md: '0px' }}
+             />
+           </Box>
         </Box>
         <Box mr="52px">
           <Select
             onChange={(e) => handleChange(e)}
             display={'flex'}
             justifyContent="flex-end"
-            width="fit-content"
-            cursor="pointer"
+            className="navbar-select"
+            style={selectResponsiveStyle}
+            marginRight={{ base: '20px', md: '52px' }}
           >
             <option value="en">EN</option>
             <option value="ka">KA</option>
