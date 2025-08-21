@@ -7,7 +7,7 @@ const SampleButton = () => {
   const { lang, setLang } = useContext(Lang)
   let { sample } = data[lang]
   return (
-    <Box display="flex" justifyContent="center" mt="80px" mb="200px">
+    <Box display="flex" justifyContent="center" mt="80px">
       <Link
         href="/Sample.pdf"
         target="_blank"
@@ -21,7 +21,7 @@ const SampleButton = () => {
         borderRadius="2xl"
         textAlign="center"
         fontWeight="thiner"
-        fontSize={{ base: '18px', md: '20px', lg: '25px' }}
+        fontSize={{ base: '16px', md: '20px', lg: '25px' }}
       >
         {sample}
       </Link>

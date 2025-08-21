@@ -282,7 +282,7 @@ export default function Form() {
           mb={'30px'}
           justifyContent={'center'}
           alignItems={'center'}
-          fontSize={{ base: '20px', md: '22px', lg: '24px' }}
+          fontSize={{ base: '18px', md: '22px', lg: '24px' }}
         >
           {form['form-top']}
         </Heading>
