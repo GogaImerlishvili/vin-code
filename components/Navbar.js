@@ -3,13 +3,6 @@ import { Image, Box, Link, Select } from '@chakra-ui/react'
 import { Lang } from '../context'
 import data from '../locales/langs'
 
-const logoResponsiveStyle = {
-  width: '120px',
-  height: '120px',
-  objectFit: 'contain',
-  marginTop: '20px',
-  transition: 'width 0.2s, height 0.2s',
-};
 
 const selectResponsiveStyle = {
   width: 'fit-content',
@@ -63,17 +56,20 @@ const Navbar = () => {
         m="0 auto"
       >
         <Box>
-           <Box display="flex" position="relative" style={{ minWidth: '120px', minHeight: '120px', justifyContent: 'center', alignItems: 'center' }}>
-             <Image
-               src="/logo.svg"
-               alt="Logo"
-               width={{ base: '100px', md: '120px' }}
-               height={{ base: '100px', md: '120px' }}
-               objectFit="contain"
-               marginTop={{ base: '10px', md: '20px' }}
-               marginLeft={{ base: '12px', md: '0px' }}
-             />
-           </Box>
+           <Link href="/">
+             <Box display="flex" position="relative" style={{ minWidth: '120px', minHeight: '120px', justifyContent: 'center', alignItems: 'center' }}>
+               <Image
+                 src="/logo.svg"
+                 alt="Logo"
+                 width={{ base: '100px', md: '120px' }}
+                 height={{ base: '100px', md: '120px' }}
+                 objectFit="contain"
+                 marginTop={{ base: '10px', md: '20px' }}
+                 marginLeft={{ base: '12px', md: '0px' }}
+                 cursor="pointer"
+               />
+             </Box>
+           </Link>
         </Box>
         <Box mr="52px">
           <Select

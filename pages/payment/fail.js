@@ -10,6 +10,7 @@ export default function PaymentFail() {
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
+      style={{ background: 'rgb(13, 46, 73)' }}
     >
       <Heading color="red.500" mb={4} fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}>
         გადახდა წარუმატებელია

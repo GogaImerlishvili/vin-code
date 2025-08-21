@@ -10,8 +10,9 @@ const Footer = () => {
     <>
       <Box
         mt="auto"
-        h={['150px', '200px', '200px']}
+        h={['150px', '150px', '150px']}
         bg="#2D5697"
+        style={{ background: 'rgb(13, 46, 73)' }}
         maxW="full"
         display="flex"
         flexDirection="row"
@@ -25,22 +26,28 @@ const Footer = () => {
         >
           <Box maxW="300px" m="auto 0">
             <Box display="flex" position="relative">
-              <Image
-                src="/circle.svg"
-                position="absolute"
-                top={['-20px', '-24px', '-24px']}
-                left={['20px', '36px', '36px']}
-                h={['35px', '65px', '65px']}
-                alt="Logo"
-              />
-              <Link
-                mt="-4px"
-                ml={'55px'}
-                fontSize={'2md'}
-                href="/"
-                textColor="white"
-              >
-                MYAUTOVIN
+              <Link href="/">
+                <Box
+                  display="flex"
+                  position="relative"
+                  style={{
+                    minWidth: '120px',
+                    minHeight: '120px',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                  }}
+                >
+                  <Image
+                    src="/logo.svg"
+                    alt="Logo"
+                    width={{ base: '100px', md: '120px' }}
+                    height={{ base: '100px', md: '120px' }}
+                    objectFit="contain"
+                    marginTop={{ base: '10px', md: '20px' }}
+                    marginLeft={{ base: '12px', md: '0px' }}
+                    cursor="pointer"
+                  />
+                </Box>
               </Link>
             </Box>
           </Box>
@@ -97,6 +104,7 @@ const Footer = () => {
       <Box
         color="white"
         bg="#2D5697"
+        style={{ background: 'rgb(13, 46, 73)' }}
         pb="10px"
         display="flex"
         flexDirection="row"

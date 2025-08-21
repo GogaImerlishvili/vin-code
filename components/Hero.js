@@ -50,8 +50,8 @@ const Hero = () => {
         <Flex
           w={{ base: '100%', sm: '100%', md: '100%', lg: '100%' }}
           backgroundColor={{
-            base: '#3874CB',
-            sm: '#3874CB',
+            base: 'rgb(13, 46, 73)',
+            sm: 'rgb(13, 46, 73)',
             md: 'transparent',
             lg: 'transparent'
           }}
@@ -62,6 +62,7 @@ const Hero = () => {
         >
           <Box
             backgroundColor="#3874CB"
+            style={{ background: 'rgb(13, 46, 73)' }}
             borderRadius="10px"
             h="200px"
             w={{ base: '30%', md: '200px', lg: '200px' }}
@@ -79,6 +80,7 @@ const Hero = () => {
           </Box>
           <Box
             backgroundColor="#3874CB"
+            style={{ background: 'rgb(13, 46, 73)' }}
             borderRadius="10px"
             h="200px"
             w={{ base: '30%', md: '200px', lg: '200px' }}
@@ -96,6 +98,7 @@ const Hero = () => {
           </Box>
           <Box
             backgroundColor="#3874CB"
+            style={{ background: 'rgb(13, 46, 73)' }}
             borderRadius="10px"
             h="200px"
             w={{ base: '30%', md: '200px', lg: '200px' }}
