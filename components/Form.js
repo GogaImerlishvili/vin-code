@@ -447,7 +447,7 @@ export default function Form() {
                     mt="5px"
                     color="red.400"
                     textAlign="justify"
-                    fontSize={{ base: 'sm', md: 'md', lg: 'lg' }}
+                    fontSize={{ base: 'sm', md: 'md', lg: 'md' }}
                   >
                     {process.env.NEXT_PUBLIC_AUTOCHECK_PRICE}₾
                   </Text>
