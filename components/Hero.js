@@ -62,7 +62,7 @@ const Hero = () => {
         >
           <Box
             backgroundColor="#3874CB"
-            style={{ background: 'rgb(13, 46, 73)' }}
+            style={{ background: '#3874CB' }}
             borderRadius="10px"
             h="200px"
             w={{ base: '30%', md: '200px', lg: '200px' }}
@@ -80,7 +80,7 @@ const Hero = () => {
           </Box>
           <Box
             backgroundColor="#3874CB"
-            style={{ background: 'rgb(13, 46, 73)' }}
+            style={{ background: '#3874CB' }}
             borderRadius="10px"
             h="200px"
             w={{ base: '30%', md: '200px', lg: '200px' }}
@@ -98,7 +98,7 @@ const Hero = () => {
           </Box>
           <Box
             backgroundColor="#3874CB"
-            style={{ background: 'rgb(13, 46, 73)' }}
+            style={{ background: '#3874CB' }}
             borderRadius="10px"
             h="200px"
             w={{ base: '30%', md: '200px', lg: '200px' }}

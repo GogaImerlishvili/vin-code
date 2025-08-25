@@ -12,7 +12,7 @@ const SampleButton = () => {
         href="/Sample.pdf"
         target="_blank"
         bg="blue.500"
-        style={{ background: 'rgb(13, 46, 73)' }}
+        style={{ background: '#3874CB' }}
         color="white"
         p="1.5rem 1rem"
         m="-10px auto 40px auto"

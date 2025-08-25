@@ -45,8 +45,8 @@ const Navbar = () => {
       display="flex"
       maxW="full"
       h="100px"
-      bg="#2D5697"
-      style={{ background: 'rgb(13, 46, 73)', boxShadow: '0 8px 24px 0 rgba(13,46,73,0.7)' }}
+      bg="#3874CB"
+      style={{ background: '#3874CB', boxShadow: '0 8px 24px 0 rgba(13,46,73,0.7)' }}
     >
       <Box
         display="flex"
@@ -59,7 +59,7 @@ const Navbar = () => {
            <Link href="/">
              <Box display="flex" position="relative" style={{ minWidth: '120px', minHeight: '120px', justifyContent: 'center', alignItems: 'center' }}>
                <Image
-                 src="/logo.svg"
+                 src="/new-logo.svg"
                  alt="Logo"
                  width={{ base: '100px', md: '120px' }}
                  height={{ base: '100px', md: '120px' }}

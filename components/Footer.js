@@ -11,8 +11,7 @@ const Footer = () => {
       <Box
         mt="auto"
         h={['150px', '150px', '150px']}
-        bg="#2D5697"
-        style={{ background: 'rgb(13, 46, 73)' }}
+        bg="#3874CB"
         maxW="full"
         display="flex"
         flexDirection="row"
@@ -103,8 +102,7 @@ const Footer = () => {
       </Box>
       <Box
         color="white"
-        bg="#2D5697"
-        style={{ background: 'rgb(13, 46, 73)' }}
+           bg="#3874CB"
         pb="10px"
         display="flex"
         flexDirection="row"
@@ -114,11 +112,11 @@ const Footer = () => {
           textAlign={['center', 'end', 'end']}
           w="50%"
           mr={['5px', '40px', '40px']}
-          color="#a7c1eb"
+          textColor="white"
         >
           Copyright &copy; 2025
         </Text>
-        <Text textAlign={['center', 'start', 'start']} w="50%" color="#a7c1eb">
+        <Text textAlign={['center', 'start', 'start']} w="50%" textColor="white">
           All rights reserved
         </Text>
       </Box>
