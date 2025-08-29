@@ -50,7 +50,7 @@ const Hero = () => {
         <Flex
           w={{ base: '100%', sm: '100%', md: '100%', lg: '100%' }}
           backgroundColor={{
-            base: 'rgb(13, 46, 73)',
+            base: '#3874CB',
             sm: 'rgb(13, 46, 73)',
             md: 'transparent',
             lg: 'transparent'
@@ -61,8 +61,7 @@ const Hero = () => {
           justifyContent="space-evenly"
         >
           <Box
-            backgroundColor="#3874CB"
-            style={{ background: '#3874CB' }}
+backgroundColor="#3874CB"
             borderRadius="10px"
             h="200px"
             w={{ base: '30%', md: '200px', lg: '200px' }}
@@ -78,9 +77,9 @@ const Hero = () => {
               {hero['hero-time']}
             </Text>
           </Box>
+          <Box height="4px" borderBottom="3px solid #3874CB" width="131px" mx="auto" my="10px" display={{ base: 'none', md: 'block' }} />
           <Box
             backgroundColor="#3874CB"
-            style={{ background: '#3874CB' }}
             borderRadius="10px"
             h="200px"
             w={{ base: '30%', md: '200px', lg: '200px' }}
@@ -96,9 +95,9 @@ const Hero = () => {
               {hero['hero-money']}
             </Text>
           </Box>
+             <Box height="4px" borderBottom="3px solid #3874CB" width="131px" mx="auto" my="10px" display={{ base: 'none', md: 'block' }} />
           <Box
             backgroundColor="#3874CB"
-            style={{ background: '#3874CB' }}
             borderRadius="10px"
             h="200px"
             w={{ base: '30%', md: '200px', lg: '200px' }}

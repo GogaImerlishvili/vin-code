@@ -59,7 +59,7 @@ const Navbar = () => {
            <Link href="/">
              <Box display="flex" position="relative" style={{ minWidth: '120px', minHeight: '120px', justifyContent: 'center', alignItems: 'center' }}>
                <Image
-                 src="/new-logo.svg"
+                 src="/final-logo-v.svg"
                  alt="Logo"
                  width={{ base: '100px', md: '120px' }}
                  height={{ base: '100px', md: '120px' }}

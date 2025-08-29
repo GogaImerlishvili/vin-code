@@ -37,7 +37,7 @@ const Footer = () => {
                   }}
                 >
                   <Image
-                    src="/logo.svg"
+                    src="/final-logo-v.svg"
                     alt="Logo"
                     width={{ base: '100px', md: '120px' }}
                     height={{ base: '100px', md: '120px' }}

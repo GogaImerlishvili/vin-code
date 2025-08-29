@@ -25,7 +25,7 @@ const Reasons = () => {
       mr="auto"
       mt="50px"
     >
-      <Box  
+      <Box
         display="flex"
         w="full"
         justifyContent="center"
@@ -43,7 +43,7 @@ const Reasons = () => {
           w="100%"
           mb="10"
           alignItems={'center'}
-          fontSize={{ base: '20px', md: '26px', lg: '28px' }}
+          fontSize="26px"
           textAlign="center"
           fontWeight="lighter"
         >
@@ -69,7 +69,7 @@ const Reasons = () => {
           >
             <List space={3}>
               <ListItem
-                fontSize={{ base: '15px', md: '15px', lg: '16px' }}
+                fontSize="16px"
                 mb="10px"
                 display="flex"
                 flexDirection="row"
@@ -118,7 +118,7 @@ const Reasons = () => {
               </ListItem>
               <ListItem
                 fontSize={{ base: '15px', md: '15px', lg: '16px' }}
-                mb="10px"  
+                mb="10px"
                 display="flex"
                 flexDirection="row"
                 alignItems="center"
@@ -265,7 +265,7 @@ const Reasons = () => {
             mb="5px"
             w="100%"
             alignItems={'center'}
-            fontSize={{ base: '20px', md: '25px', lg: '28px' }}
+            fontSize="20px"
             fontWeight="thiner"
           >
             {reason['why']}
@@ -281,7 +281,7 @@ const Reasons = () => {
             <Text
               disply="flex"
               textAlign="center"
-              fontSize={{ base: '14px', md: '17px', lg: '18px' }}
+              fontSize="16px"
             >
               {reason['why-text']}
             </Text>
@@ -303,7 +303,7 @@ const Reasons = () => {
             w="100%"
             alignItems={'center'}
             fontWeight="thiner"
-            fontSize={{ base: '14px', md: '26px', lg: '28px' }}
+            fontSize="20px"
           >
             {reason['fast']}
           </Heading>
@@ -319,7 +319,7 @@ const Reasons = () => {
             <Text
               disply="flex"
               textAlign="center"
-              fontSize={{ base: '14px', md: '17px', lg: '18px' }}
+              fontSize="16px"
             >
               {reason['fast-text']}
             </Text>
