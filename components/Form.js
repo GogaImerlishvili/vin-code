@@ -378,11 +378,11 @@ export default function Form() {
                     backfaceVisibility: 'hidden'
                   }}
                 >
+                  <Text   fontSize={{ base: 'xs', md: 'sm', lg: 'md' }} mt={2}>
+                    Carfax
+                  </Text>
                   <Text fontSize="lg" fontWeight="bold">
                     {process.env.NEXT_PUBLIC_CARFAX_PRICE}₾
-                  </Text>
-                  <Text fontSize="xs" mt={2}>
-                    Carfax Price
                   </Text>
                 </Box>
               </Box>
@@ -472,11 +472,11 @@ export default function Form() {
                     backfaceVisibility: 'hidden'
                   }}
                 >
-                  <Text fontSize="lg" fontWeight="bold">
-                    {process.env.NEXT_PUBLIC_AUTOCHECK_PRICE}₾
+                  <Text   fontSize={{ base: 'xs', md: 'sm', lg: 'md' }} mt={2}>
+                    CarCheck
                   </Text>
-                  <Text fontSize="xs" mt={2}>
-                    Autocheck Price
+                  <Text fontSize="lg" fontWeight="bold" >
+                    {process.env.NEXT_PUBLIC_AUTOCHECK_PRICE}₾
                   </Text>
                 </Box>
               </Box>
