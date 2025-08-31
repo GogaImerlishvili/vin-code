@@ -62,7 +62,7 @@ const Navbar = () => {
                  src="/final-logo-v.svg"
                  alt="Logo"
                  width={{ base: '100px', md: '120px' }}
-                 height={{ base: '100px', md: '120px' }}
+                 height={{ base: '100px', md: '90px' }}
                  objectFit="contain"
                  marginTop={{ base: '10px', md: '20px' }}
                  marginLeft={{ base: '12px', md: '0px' }}
