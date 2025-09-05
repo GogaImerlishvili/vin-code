@@ -9,7 +9,7 @@ const SampleButton = () => {
   return (
     <Box display="flex" justifyContent="center" mt="80px">
       <Link
-        href="/Sample.pdf"
+        href="/carfax-report-pdf.pdf"
         target="_blank"
         bg="blue.500"
         style={{ background: '#3874CB' }}
