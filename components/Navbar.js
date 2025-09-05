@@ -56,20 +56,20 @@ const Navbar = () => {
         m="0 auto"
       >
         <Box>
-          <Link href="/">
-            <Box display="flex" position="relative" style={{ minWidth: '120px', minHeight: '120px', justifyContent: 'center', alignItems: 'center' }}>
-              <Image
-                src="/final-logo-v.svg"
-                alt="Logo"
-                width={{ base: '100px', md: '120px' }}
-                height={{ base: '100px', md: '120px' }}
-                objectFit="contain"
-                marginTop={{ base: '10px', md: '20px' }}
-                marginLeft={{ base: '12px', md: '0px' }}
-                cursor="pointer"
-              />
-            </Box>
-          </Link>
+           <Link href="/">
+             <Box display="flex" position="relative" style={{ minWidth: '120px', minHeight: '120px', justifyContent: 'center', alignItems: 'center' }}>
+               <Image
+                 src="/final-logo-v.svg"
+                 alt="Logo"
+                 width={{ base: '100px', md: '120px' }}
+                 height={{ base: '100px', md: '120px' }}
+                 objectFit="contain"
+                 marginTop={{ base: '10px', md: '20px' }}
+                 marginLeft={{ base: '12px', md: '0px' }}
+                 cursor="pointer"
+               />
+             </Box>
+           </Link>
         </Box>
         <Box mr="52px">
           <Select
