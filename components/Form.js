@@ -10,7 +10,8 @@ import {
   HStack,
   Text,
   useToast,
-  Button
+  Button,
+  Progress
 } from '@chakra-ui/react'
 import { Lang } from '../context'
 import langData from '../locales/langs'
@@ -33,6 +34,7 @@ export default function Form() {
   const [isFlipped, setIsFlipped] = useState(false)
   const [isCarfaxFlipped, setIsCarfaxFlipped] = useState(false)
   const [touched, setTouched] = useState({})
+  const [progress, setProgress] = useState(0)
   const { lang, setLang } = useContext(Lang)
   const { form, errors, successes, hero } = langData[lang]
   const {
@@ -52,7 +54,7 @@ export default function Form() {
         description: validationError,
         status: 'error',
         duration: 3000,
-        position: 'top',
+  position: "top",
         isClosable: true
       })
   }, [toast, validationError, errors])
@@ -96,6 +98,7 @@ export default function Form() {
   const onBlur = ({ target }) =>
     setTouched((prev) => ({ ...prev, [target.name]: true }))
 
+          // removed duplicate progress state declaration
   const handleChange = ({ target }) => {
     setState((prev) => ({
       ...prev,
@@ -186,6 +189,7 @@ export default function Form() {
     setError()
     setSeccuss()
     setValidationError()
+    setProgress(0)
 
     const vin = state.values.vin.toUpperCase().trim()
     const email = state.values.email.trim()
@@ -200,6 +204,13 @@ export default function Form() {
       setLoading(false)
       return
     }
+
+    // Start progress animation in sync with async search
+    let percent = 0
+    const interval = setInterval(() => {
+      percent += 2
+      setProgress((prev) => (prev < 98 ? prev + 2 : prev))
+    }, 80)
 
     const getReportStatus = async (vend, vincode, email) => {
       try {
@@ -235,6 +246,8 @@ export default function Form() {
     }
 
     await getReportStatus(vendor, vin, email)
+    clearInterval(interval)
+    setProgress(100)
   }
 
   return (
@@ -482,6 +495,12 @@ export default function Form() {
               </Box>
             </Box>
           </HStack>
+          {isLoading && (
+            <Box w="70%" ml="15%" mb={3}>
+              <Progress value={progress} size="sm" colorScheme="blue" />
+              <Text fontSize="sm" textAlign="center">{progress}%</Text>
+            </Box>
+          )}
           <FormControl
             alignItems="center"
             fontSize="25px"
